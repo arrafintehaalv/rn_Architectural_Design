@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from "react-native";
 import { AuthContext } from "../Context/context";
+import ApiJson from "../Api/Api.json";
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: "center",
-      alignItems: "center"
+    //   justifyContent: "center",
+    //   alignItems: "center"
     },
     input: {
         height: 40,
@@ -17,6 +18,11 @@ const styles = StyleSheet.create({
     loginButton: {
         color: 'green',
         textTransform: 'uppercase'
+    },
+    user: {
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        alignItems: 'center'
     }
 });
   
@@ -26,20 +32,27 @@ const ScreenContainer = ({ children }) => (
 );
 
 export default AllUsersScreen = () => {
-    const { signIn } = React.useContext(AuthContext);
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const onChangeValue = (value, type) => {
-        if (type === 'email') {
-            setEmail(value);
-        }
-        if (type === 'password') {
-            setPassword(value);
-        }
-    }
     return (
         <ScreenContainer>
-            <Text>AllUsersScreen</Text>
+            {ApiJson.usersData && ApiJson.usersData.length > 0 ? 
+                <ScrollView style={{flex: 1}}>
+                    {ApiJson.usersData.map(item => {
+                        <View key={item.id} style={styles.user}>
+                            <Text>{item.name}</Text>
+                            <Text>{item.role}</Text>
+                            {ApiJson.UserRole === "Admin" ? <>
+                                <TouchableOpacity><Text>Edit</Text></TouchableOpacity>
+                                <TouchableOpacity><Text>Delete</Text></TouchableOpacity>
+                            </> : null
+                            }
+                            
+                        </View>
+                    })}
+
+                </ScrollView>
+                    : null
+             }
+            
         </ScreenContainer>
   );
 }

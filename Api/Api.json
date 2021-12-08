@@ -3,5 +3,17 @@
     "Name" : "Arraf Alvy",
     "Email" : "arraf@gmail.com",
     "UserRole": "Admin",
-    "Avatar": ""
+    "Avatar": "",
+    "usersData": [
+        {
+            "id": 1,
+            "name": "Alex",
+            "role": "Member"
+        },
+        {
+            "id": 2,
+            "name": "Ronaldo",
+            "role": "Admin"
+        }
+    ]
 }
